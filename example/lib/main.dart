@@ -13,7 +13,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 void main() => runApp(SlidingUpPanelExample());
@@ -48,6 +47,8 @@ class _HomePageState extends State<HomePage> {
   double _fabHeight = 0;
   double _panelHeightOpen = 0;
   double _panelHeightClosed = 95.0;
+  double _panelWidthtOpen = 30;
+  double _panelWidthClosed = 95.0;
 
   @override
   void initState() {
@@ -65,18 +66,25 @@ class _HomePageState extends State<HomePage> {
         alignment: Alignment.topCenter,
         children: <Widget>[
           SlidingUpPanel(
-            maxHeight: _panelHeightOpen,
-            minHeight: _panelHeightClosed,
+            minWidth: 500,
+            maxWidth: 800,
             parallaxEnabled: true,
             parallaxOffset: .5,
+            slideDirection: SlideDirection.Right,
+            collapsed: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey, //Color.fromARGB(255, 48, 48, 48),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(
+                child: Container(child: Text('Test')),
+              ),
+            ),
             body: _body(),
             panelBuilder: (sc) => _panel(sc),
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(18.0),
-                topRight: Radius.circular(18.0)),
+            borderRadius: BorderRadius.circular(20),
             onPanelSlide: (double pos) => setState(() {
-              _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
-                  _initFabHeight;
+              _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) + _initFabHeight;
             }),
           ),
 
@@ -117,10 +125,7 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24.0),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, .25), blurRadius: 16.0)
-                ],
+                boxShadow: [BoxShadow(color: Color.fromRGBO(0, 0, 0, .25), blurRadius: 16.0)],
               ),
             ),
           ),
@@ -254,8 +259,7 @@ class _HomePageState extends State<HomePage> {
             icon,
             color: Colors.white,
           ),
-          decoration:
-              BoxDecoration(color: color, shape: BoxShape.circle, boxShadow: [
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle, boxShadow: [
             BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.15),
               blurRadius: 8.0,
@@ -271,26 +275,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _body() {
-    return FlutterMap(
-      options: MapOptions(
-        center: LatLng(40.441589, -80.010948),
-        zoom: 13,
-        maxZoom: 15,
-      ),
-      layers: [
-        TileLayerOptions(
-            urlTemplate: "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"),
-        MarkerLayerOptions(markers: [
-          Marker(
-              point: LatLng(40.441753, -80.011476),
-              builder: (ctx) => Icon(
-                    Icons.location_on,
-                    color: Colors.blue,
-                    size: 48.0,
-                  ),
-              height: 60),
-        ]),
-      ],
-    );
+    return Container();
   }
 }
