@@ -66,8 +66,9 @@ class _HomePageState extends State<HomePage> {
         alignment: Alignment.topCenter,
         children: <Widget>[
           SlidingUpPanel(
-            minWidth: 500,
-            maxWidth: 800,
+            minHeight: _panelHeightClosed,
+            maxHeight: _panelHeightOpen,
+            minWidth: MediaQuery.of(context).size.width,
             parallaxEnabled: true,
             parallaxOffset: .5,
             slideDirection: SlideDirection.Right,

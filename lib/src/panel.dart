@@ -323,7 +323,15 @@ class _SlidingUpPanelState extends State<SlidingUpPanel> with SingleTickerProvid
                   animation: _ac,
                   builder: (context, child) {
                     return Container(
-                      width: _ac.value * (widget.maxWidth - widget.minWidth) + widget.minWidth,
+                      height: (widget.slideDirection == SlideDirection.UP ||
+                              widget.slideDirection == SlideDirection.DOWN)
+                          ? _ac.value * (widget.maxHeight - widget.minHeight) +
+                              widget.minHeight
+                          : null,
+                      width: (widget.slideDirection == SlideDirection.Left ||
+                              widget.slideDirection == SlideDirection.Right)
+                          ? _ac.value * (widget.maxWidth - widget.minWidth) + widget.minWidth
+                          : null,
                       margin: widget.margin,
                       padding: widget.padding,
                       decoration: widget.renderPanelSheet
